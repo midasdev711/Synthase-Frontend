@@ -1,0 +1,78 @@
+@import '~@/assets/scss/global/variables';
+
+.search-results{
+	margin: auto;
+	width: 90%;
+}
+
+.result-row {
+	padding: 1rem;
+	max-width: 1000px;
+	margin-bottom: 2rem;
+	border-radius: 10px;
+	background-color: $primary_light;
+	cursor: pointer;
+	transition: all 300ms;
+
+	&:hover {
+		background-color: darken($primary_light, 10%);
+	}
+}
+
+.result-sentiment-row {
+	margin-bottom: 1rem;
+
+	.result-label {
+		margin-bottom: 0.5rem;
+	}
+}
+
+.result-url {
+	word-wrap: break-word;
+}
+
+.result-label {
+	color: $secondary;
+	font-weight: 700;
+	margin-bottom: 1rem;
+
+	&--url {
+		@extend .result-label;
+		word-break: break-all;
+	}
+
+	&--language {
+		@extend .result-label;
+		margin-bottom: 0;
+	}
+}
+
+.result-entry {
+	color: white;
+	font-weight: 400;
+}
+
+.result-ssh {
+	margin: auto;
+	display: block;
+	color: white;
+	font-weight: 400;
+	word-wrap: break-word;
+    width: 1000px;
+}
+
+.result-languages {
+	margin-bottom: 1rem;
+}
+
+.result-flag {
+	margin-left: 12px;
+	margin-right: 6px;
+}
+
+.details-fade-enter-active, .details-fade-leave-active {
+  transition: opacity .5s;
+}
+.details-fade-enter, .details-fade-leave-to {
+  opacity: 0;
+}

@@ -1,0 +1,65 @@
+/*==== Grid ===*/
+
+// Gutter size
+$gutter: 12px;
+
+// Grid size
+$number-of-columns: 12;
+
+// Breakpoints
+$xs-break: 375px;
+$sm-break: 767px;
+$md-break: 1024px;
+$lg-break: 1440px;
+
+/*==== Colors ===*/
+$primary: #263238;
+$primary_new: #1f292e;
+$primary_light: #4f5b62;
+$primary_dark: darken($primary,5%);
+$primary_darker: #141b1e;
+$secondary: #64b5f6;
+$secondary_light: #9be7ff;
+$secondary_dark: #2286c3;
+$white: #FAFAFA;
+$soft_red: #de6868;
+$soft_green: #3fc35a;
+$border: rgba(255, 255, 255, 0.1);
+$border_blue: rgba(34, 134, 195, 0.4);
+
+$tor_original: #6a1395;
+
+$onion_result: #291f2e;
+$onion_result_heightened: #3a1f47;
+$telegram_result: #1b2a32;
+$telegram_result_heightened: #00324d;
+
+$link: #7dbfe8;
+
+// Dark
+$grey_1: #F5F5F5;
+$grey_2: #EEEEEE;
+$grey_3: #E0E0E0;
+$grey_4: #BDBDBD;
+$grey_5: #9E9E9E;
+$grey_6: #757575;
+$grey_7: #616161;
+$grey_8: #424242;
+$grey_9: #212121;
+
+// Typography
+$baseFontSize: 16;
+$baseLineHeight: 1.5;
+$leading: $baseLineHeight * 1rem;
+// $font-family: 'Raleway', sans-serif;
+$font-family: 'Lato', sans-serif;
+
+// Rate of growth for headings
+// I actually like this to be slightly smaller then the leading. Makes for tight headings.
+$scale: 1.414;
+
+// Misc
+$nav-width: 264px;
+
+$themeColor: $secondary;
+

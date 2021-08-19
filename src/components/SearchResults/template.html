@@ -1,0 +1,30 @@
+<div v-if="results" class="search-results flex items-start" id="results_page">
+	<div v-if="results.found > 0" class="search-column w-3/4" :class="{no_pagination: !show_pagination}">
+		<div v-if="results && show_pagination" class="sort_pagination">
+			<SortResults v-if="show_pagination" :options="sort_by" @sortselect="sort_results"/>
+			<Pagination v-if="show_pagination" :total="results.found"/>
+		</div>
+		<div class="separator"></div>
+		<div class="filters_div">
+			<FilterChip @remove_chip="removeChip" v-for="filter in filters" v-bind:key="filter[1]" :term="filter"></FilterChip>
+		</div>
+		<div class="separator"></div>
+		<Result @add_term="add_to_terms" v-for="result of results.hits" v-bind:key="result._id" :result="result"></Result>
+		<div v-if="results && show_pagination" class="sort_pagination">
+			<Pagination v-if="show_pagination" :total="results.found"/>
+		</div>
+	</div>
+	<div v-else class="search-column w-3/4" :class="{no_pagination: !show_pagination}">
+		<div v-if="results && show_pagination" class="sort_pagination">
+			<SortResults v-if="show_pagination" :options="sort_by" @sortselect="sort_results"/>
+			<Pagination v-if="show_pagination" :total="results.found"/>
+		</div>
+		<div class="no_results" >
+			<h1>No results found</h1>
+		</div>
+	</div>
+	
+	<!-- <transition name="details-fade">
+		<ResultDetails v-if="selected_result" :result="selected_result" @close_details="selected_result = null"/>
+	</transition> -->
+</div>

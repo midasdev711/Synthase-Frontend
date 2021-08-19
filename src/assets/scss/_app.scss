@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+// Global
+@import 'global/variables';
+@import '~normalize.css';
+@import 'global/typography';
+@import 'global/mixins';
+@import 'global/utility';
+@import 'global/grid';
+@import 'global/icons';
+@import "node_modules/tailwindcss/preflight";
+@import "node_modules/tailwindcss/components";
+@import "node_modules/tailwindcss/utilities";
+@import 'global/layout';
+@import 'global/ui-components';
+
+// Components
+@import 'components/select';
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgba(0,0,0,0.4);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}

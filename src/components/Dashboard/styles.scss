@@ -1,0 +1,180 @@
+@import '~@/assets/scss/global/variables';
+@import '~vue-slider-component/lib/theme/default.scss';
+
+
+.dashboard {
+    margin: auto;
+    width: 95%;
+}
+
+.top-chart {
+    border-radius: 10px;
+}
+
+.graphics-container{
+    // background-color: $primary;
+    margin: auto;
+    margin-top: 2rem;
+    // min-width: 1500px;
+    max-width: 1500px;
+    border-radius: 10px;
+}
+
+.layout-split {
+    position: relative;
+    display: flex;
+
+    &--header {
+        @extend .layout-split;
+        width: 90%;
+        margin: auto;
+        margin-top: 6rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.slider-container-dash {
+    width: 50%;
+}
+
+.mega-rect {
+    position: relative;
+    // background-color: $primary;
+    width: 100%;
+    height: 15rem;
+    margin-bottom: 1rem;
+}
+
+
+.domain-description {
+    margin-top: 3rem;
+    margin-left: 5rem;
+    p {
+        font-size: 16px;
+    }
+}
+
+.description-row {
+    margin-bottom: 1rem;
+    width: 100%;
+    // line-height: 30px;
+    &--top-row{
+        line-height: 12px;
+        @extend .description-row;
+        margin-bottom: 3rem;
+    }
+}
+
+.label {
+    color: $secondary;
+    margin-right: 1rem;
+}
+
+.end {
+    margin-bottom: 2rem;
+}
+
+.rect-1 {
+    position: relative;
+    display: flex;
+    background-color: #1f292e;
+    border-radius: 10px;
+    width: 100%;
+    height: 15rem;
+    margin-top: 1rem;
+    &--end {
+        @extend .rect-1;
+        margin-bottom: 2rem;
+    }
+}
+
+.rect-2-header {
+    position: relative;
+    background-color: #1f292e;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 25rem;
+    height: 5rem;
+    margin-top: 1rem;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+// .rect-2 {
+//     position: relative;
+//     background-color: $primary;
+//     width: 100%;
+//     height: 20rem;
+//     margin-top: 1rem;
+//     text-align: center;
+//     padding-top: 2rem;
+//     &--end {
+//         @extend .rect-2;
+//         margin-bottom: 2rem;
+//     }
+// }
+
+.rect-2 {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 25rem;
+    border-radius: 30px;
+    &--end {
+        @extend .rect-2;
+        margin-bottom: 2rem;
+    }
+}
+
+.side__graph {
+    margin-top: 1rem;
+    height: 100%;
+    border-radius: 10px;
+    // padding-left: 4rem;
+}
+
+.top-indicator {
+    
+}
+
+.rect-3 {
+    position: relative;
+    background-color: #1f292e;
+    border-radius: 10px;
+    width: 50%;
+    height: 3rem;
+}
+
+.wider-rects {
+    width: 75%;
+    padding-right: 1rem;
+}
+
+.thinner-rects {
+    width: 25%;
+}
+
+
+.collection___container {
+    max-width: 1500px;
+    padding-bottom: 30px;
+    padding-top: 2rem;
+}
+
+.threat_container {
+    max-width: 1500px;
+}
+
+.threats__graph {
+    // float: left;
+    // width: 25%;
+    height: 15rem;
+    width: 15rem;
+    padding-top: 1rem;
+    padding-left: 2rem;
+}
+
+
+
+.relevant__crawled {
+    margin: auto;
+}

@@ -1,0 +1,71 @@
+/*===== Margin and Padding Classes =====*/
+
+.margin-right--x-small {
+  margin-right: 12px;
+}
+
+.margin-top--x-small {
+  margin-top: 12px;
+}
+
+.margin-top--small {
+  margin-top: 24px;
+}
+
+.margin-top--medium, .margin-top {
+  margin-top: 48px;
+}
+
+.margin-top--large {
+  margin-top: 72px;
+}
+
+.margin-bottom--xs {
+  margin-bottom: 12px;
+}
+
+.margin-bottom--small {
+  margin-bottom: 24px;
+}
+
+.margin-bottom--medium, .margin-bottom {
+  margin-bottom: 48px;
+}
+
+.margin-bottom--large {
+  margin-bottom: 72px;
+}
+
+/*==== Positioning ====*/
+.pos-rel {
+    position: relative;
+}
+
+/*==== Background Image =====*/
+.bg-cover {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/*==== Body scroll ====*/
+.no-scroll {
+    overflow: hidden;
+}
+
+/*==== Link block ====*/
+a.link-block {
+    display: block;
+    font-style: normal;
+    text-decoration: none;
+}
+
+/*==== Preload Images ====*/
+img[data-preload] {
+    opacity: 0;
+    transition: opacity 300ms;
+
+    &.ready {
+        opacity: 1;
+    }
+}

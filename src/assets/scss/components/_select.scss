@@ -1,0 +1,27 @@
+.v-select {
+	.dropdown-toggle {
+		position: relative;
+		background-color: rgba(white, 0.88);
+		color: black;
+		// overflow: hidden;
+		// border-radius: 0;
+	}
+	.no-options{
+		color: $grey_7;
+	}
+}
+// .dropdown{
+// 	.dropdown-toggle,
+// 	.dropdown-menu{
+// 		background: $primary-light;
+// 		border: none;
+// 		color: white;
+// 		// text-transform: lowercase;
+// 		// font-variant: small-caps;
+// 	}
+
+// 	.clear,
+// 	.open-indicator {
+// 		fill: $primary-light;
+// 	}
+// }

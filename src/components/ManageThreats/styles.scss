@@ -1,0 +1,177 @@
+@import '~@/assets/scss/global/variables';
+
+#manage-threats {
+	margin-top: 2rem;
+	padding-top: 12px;
+	background-color: $primary;
+}
+
+.threat-name {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: clip;
+}
+
+.manage-threats__footer {
+	position: sticky;
+	bottom: 0;
+	background-color: $primary;
+	padding: 24px;
+
+	input {
+		max-width: 400px;
+	}
+}
+
+.separator{
+	padding-top: 5px;
+	&_bottom{
+		padding-bottom: 15px
+	}
+}
+
+.search_bar{
+	margin: auto;
+	width: 98%;
+}
+
+.search_container{
+	margin: auto;
+	width: 100%;
+	display: inline-block;
+}
+
+.manage-threats__search {
+	width: 100%;
+}
+
+input[type="text"] {
+	width: 100%;
+}
+
+.title {
+	line-height: 1;
+	margin-bottom: 1rem;
+}
+
+.threats-indicators {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 12px;
+	padding: 12px;
+	background-color: $primary-light;
+	box-shadow: inset 0px 0px 11px -1px rgba(0,0,0,0.5);
+}
+
+.threat-card {
+	height: 460px;
+	background-color: $primary;
+	overflow: auto;
+
+	&.threat-card--active {
+		.threat-card__header-input {
+			height: 48px;
+		}
+
+		.threat-card__add {
+			background-color: $secondary;
+		}
+		.threat-card__add_uncat {
+			background-color: $secondary;
+		}
+	}
+
+	&__header {
+		position: sticky;
+		top: 0;
+		background-color: $primary;
+	}
+
+	&__header-flex {
+		display: flex;
+		height: 48px;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 12px;
+	}
+
+	&__header-input[type="text"] {
+		display: block;
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		border-bottom: 2px solid white;
+		width: 100%;
+		height: 0;
+		padding: 0 0 0 12px;
+		background-color: transparent;
+		color: white;
+		transition: height 300ms !important;
+	}
+
+	&__add,
+	&__add_uncat,
+	&__remove {
+		font-size: 24px;
+		width: 24px !important;
+		padding: 6px 0;
+		cursor: pointer;
+		transition: background-color .3s;
+	}
+
+	&__remove {
+		background-color: $soft_red;
+
+		&:hover {
+			background-color: red;
+		}
+	}
+
+	&__add {
+		margin-right: 12px;
+		background-color: $soft_green;
+
+		&:hover {
+			background-color: green;
+		}
+	}
+	&__add_uncat {
+		background-color: $soft_green;
+
+		&:hover {
+			background-color: green;
+		}
+	}
+
+	&__indicators {
+		padding: 12px;
+	}
+
+	&__indicator-chip {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: $secondary-dark;
+		padding: 6px 12px;
+		margin-bottom: 12px;
+		border-radius: 18px;
+	}
+
+	&__indicator-label {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: clip;
+	}
+
+	&__indicator-close {
+		cursor: pointer;
+		font-size: 20px;
+		margin-left: 12px;
+		transition: transform 300ms, color 300ms;
+
+		&:hover {
+			transform: scale(1.1);
+			color: $soft_red;
+		}
+	}
+}

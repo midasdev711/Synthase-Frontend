@@ -1,0 +1,73 @@
+<div v-if="results" class="search-results flex items-start">
+	<div v-if="results" class="results-side-bar w-1/4 mr-8 shadow-md">
+		<SortResults :options="sort_by" @sortselect="sort_results"/>
+		<Pagination :total="results.found"/>
+	</div>
+	<div>
+		<div class="result-row shadow-md"
+			v-for="result of results.hits"
+			@click="selected_result = result">
+			<h3 class="text-secondary pb-4">Page Title:
+				<span class="text-white p"> {{ result.title }}</span>
+			</h3>
+			<div class="flex">
+				<div class="result-left-col w-1/2">
+					<p class="result-label--url">
+						<font-awesome-icon class="login__icon" :icon="['fas', 'link']"/>
+						URL:
+						<span class="result-entry result-url"> {{ result.url }}</span>
+					</p>
+					<p class="result-label">
+						<font-awesome-icon class="login__icon" :icon="['fas', 'barcode']"/>
+						Last Crawl:
+						<span class="result-entry"> {{ result.last_crawl | epoch }}</span>
+					</p>
+					<div v-if="result.languages.length > 1" class="result-languages flex items-center">
+						<p class="result-label--language">
+							<font-awesome-icon :icon="['fas', 'globe-americas']"/>
+							Languages:
+							<span class="result-entry"
+								v-for="language of result.languages">
+								{{ language.name }} {{ language.score }}
+								<span v-if="result.languages.length > 0">%</span>
+								<span class="text-primary-dark" v-if="result.languages.length > 1">|</span>
+							</span>
+						</p>
+					</div>
+					<div v-if="result.sentiment" class="result-sentiment-row">
+						<p class="result-label">Sentiment:</p>
+						<Sentiment :score="result.sentiment"/>
+					</div>
+					<p class="result-label">Deanonymized:
+						<span class="result-entry">
+							<template v-if="result.has_deanon == 1">Yes</template>
+							<template v-else>No</template>
+						</span>
+					</p>
+				</div>
+				<div class="w-1/2">
+					<p v-if="result.website_type" class="result-label">Page Type:
+						<span v-for="" class="result-entry">{{ result.website_type }}</span>
+					</p>
+					<p class="result-label">Indicators:
+						<span class="result-entry"
+							v-for="indicator of result.matched_indicators">
+							{{ indicator }}
+							<span class="text-primary-dark" v-if="result.matched_indicators.length > 1">|</span>
+						</span>
+					</p>
+					<p v-if="result.topic_modeling[0] != 'None'" class="result-label">Page Topics:
+						<span class="result-entry"
+							v-for="topic of result.topic_modeling">
+							{{ topic }}
+							<span class="text-primary-dark" v-if="result.topic_modeling.length > 1">|</span>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<transition name="details-fade">
+		<ResultDetails v-if="selected_result" :result="selected_result" @close_details="selected_result = null"/>
+	</transition>
+</div>

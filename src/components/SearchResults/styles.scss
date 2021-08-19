@@ -1,0 +1,41 @@
+@import '~@/assets/scss/global/variables';
+
+
+.filters_div {
+	margin-bottom: 2rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+
+.sort_pagination {
+	position: relative;
+	display: inline;
+	margin-bottom: 2rem;
+}
+
+.separator {
+	clear: both;
+}
+
+.no_results {
+	// width: 100px;
+	// height: 100px;
+	position: absolute;
+	top: 45%;
+	left: 45%
+}
+
+.search-column {
+	// width: 100%;
+	// max-width: 1300px;
+	margin-top: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	// &.no_pagination {
+	// 	width: 90%;
+	// 	max-width: 1300px;
+	// 	margin: auto;
+	// }
+}

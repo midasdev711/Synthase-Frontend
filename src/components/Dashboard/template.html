@@ -1,0 +1,197 @@
+<!-- <div v-if="results" class="dashboard"> -->
+<div class="dashboard">
+    <div class="graphics-container">
+        <div class="collection___container">
+            <DataCollectionChart
+                class="top-chart shadow-lg"
+                :data="data_collection_config.data"
+                :options="data_collection_config.options"
+                :style="data_collection_style"
+            />
+        </div>
+        <!-- <div class="layout-split--header">
+            <div class="wider-rects">
+                <div class="rect-3 shadow-lg"></div>
+            </div>
+            <div class="slider-container-dash">
+                <vue-slider 
+                    v-model="date_values"
+                    :dotSize=18
+                    :height=8
+                    :data="date_marks",
+                    :marks="true",
+                    direction="rtl",
+                >
+                </vue-slider>
+            </div>
+        </div> -->
+        <!-- <div class="mega-rect shadow-lg"></div> -->
+        <div class="layout-split">
+            <div class="wider-rects">
+                <div v-if="!telegram_dash">
+                    <div v-for="domain in Object.keys(onion_results.domains)" class="rect-1 shadow-lg">
+                        <div class="threats__graph">
+                            <TopThreatsChart
+                                :data="onion_results.domains[domain]"
+                                :options="top_threats_1d_config.options"
+                                :style="chart_styles"/>
+                        </div>
+                        <div class="domain-description">
+                            <h3 class="description-row--top-row"><span class="label">Domain: </span>{{ domain }}</h3>
+                            <p class="description-row"><span class="label">Top Indicators: </span><span v-for="indicator of Object.keys(onion_results.domains[domain].indicators)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                            <p class="description-row"><span class="label">Popular Topics: </span><span v-for="topic of Object.keys(onion_results.domains[domain].page_topics)"><InteractiveTerm @add_term="pass_on_event" :term="topic" type="topic"></InteractiveTerm></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <div v-for="channel in Object.keys(telegram_results.channel_stats)" class="rect-1 shadow-lg">
+                        <div class="threats__graph">
+                            <TopThreatsChart
+                                :data="telegram_results.channel_stats[channel]"
+                                :options="top_threats_1d_config.options"
+                                :style="chart_styles"/>
+                        </div>
+                        <div class="domain-description">
+                            <h3 class="description-row--top-row"><span class="label">Name: </span>{{ channel }}</h3>
+                            <p class="description-row"><span class="label">Top Forwarded Channels: </span><span v-for="channel of Object.keys(telegram_results.channel_stats[channel].fwd_channels)"><InteractiveTerm @add_term="pass_on_event" :term="channel" type="channel"></InteractiveTerm></span></p>
+                            <p class="description-row"><span class="label">Top Users: </span><span v-for="user of Object.keys(telegram_results.channel_stats[channel].users)"><InteractiveTerm @add_term="pass_on_event" :term="user" type="user"></InteractiveTerm></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="end"></div>
+                <!-- <div class="rect-1 shadow-lg">
+                    <div class="threats__graph">
+                    <TopThreatsChart
+                        :data="top_domain_2"
+                        :options="top_threats_1d_config.options"
+                        :style="chart_styles"/>
+                    </div>
+                    <div class="domain-description">
+                        <h3 class="description-row--top-row"><span class="label">Domain: </span> {{ top_domain_2.domain }}</h3>
+                        <p class="description-row"><span class="label">Top Indicators: </span><span v-for="indicator of Object.keys(top_domain_2.indicators)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                        <p class="description-row"><span class="label">Popular Topics: </span><span v-for="indicator of Object.keys(top_domain_2.page_topics)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                    </div>
+                </div>
+                <div class="rect-1 shadow-lg">
+                    <div class="threats__graph">
+                        <TopThreatsChart
+                            :data="top_domain_3"
+                            :options="top_threats_1d_config.options"
+                            :style="chart_styles"/>
+                    </div>
+                    <div class="domain-description">
+                        <h3 class="description-row--top-row"><span class="label">Domain: </span>{{ top_domain_3.domain }}</h3>
+                        
+                        <p class="description-row"><span class="label">Top Indicators: </span><span v-for="indicator of Object.keys(top_domain_3.indicators)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                        <p class="description-row"><span class="label">Popular Topics: </span><span v-for="indicator of Object.keys(top_domain_3.page_topics)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                    </div>
+                </div>
+                <div class="rect-1 shadow-lg">
+                    <div class="threats__graph">
+                        <TopThreatsChart
+                            :data="top_domain_4"
+                            :options="top_threats_1d_config.options"
+                            :style="chart_styles"/>
+                    </div>
+                    <div class="domain-description">
+                        <h3 class="description-row--top-row"><span class="label">Domain: </span>{{ top_domain_4.domain }}</h3>
+                        <p class="description-row"><span class="label">Top Indicators: </span><span v-for="indicator of Object.keys(top_domain_4.indicators)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                        <p class="description-row"><span class="label">Popular Topics: </span><span v-for="indicator of Object.keys(top_domain_4.page_topics)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                    </div>
+                </div>
+                <div class="rect-1--end shadow-lg">
+                    <div class="threats__graph">
+                        <TopThreatsChart
+                            :data="top_domain_5"
+                            :options="top_threats_1d_config.options"
+                            :style="chart_styles"/>
+                    </div>
+                    <div class="domain-description">
+                        <h3 class="description-row--top-row"><span class="label">Domain: </span>{{ top_domain_5.domain }}</h3>
+                        <p class="description-row"><span class="label">Top Indicators: </span><span v-for="indicator of Object.keys(top_domain_5.indicators)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                        <p class="description-row"><span class="label">Popular Topics: </span><span v-for="indicator of Object.keys(top_domain_5.page_topics)"><InteractiveTerm @add_term="pass_on_event" :term="indicator" type="indicator"></InteractiveTerm></span></p>
+                    </div>
+                </div> -->
+            </div>
+            <div class="thinner-rects">
+                <!-- <div class="rect-2-header shadow-lg"></div> -->
+                <div v-if="!telegram_dash">
+                    <div class="rect-2 shadow-lg">
+                        <OtherChart
+                        class="side__graph"
+                        :data="onion_results.website_types"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"
+                        title='Page Types Breakdown'/>
+                    </div>
+                    <div class="rect-2--end shadow-lg">
+                        <OtherChart
+                        class="side__graph"
+                        :data="onion_results.top_indicators"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"
+                        title='Top Indicators'/>
+                    </div>
+                    <div class="rect-2--end shadow-lg">
+                        <OtherChart
+                        class="side__graph"
+                        :data="onion_results.top_topics"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"
+                        title='Popular Topics'/>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="rect-2 shadow-lg">
+                        <OtherChart
+                        class="side__graph"
+                        :data="telegram_results.media"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"
+                        title='Media Types Breakdown'/>
+                    </div>
+                    <div class="rect-2--end shadow-lg">
+                        <OtherChart
+                        class="side__graph"
+                        :data="telegram_results.origin_type"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"
+                        title='Top Origin Types'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="threat_container">
+                <div class="threats__graph">
+                    <TopThreatsChart
+                        :data="top_threats_1d_config.data"
+                        :options="top_threats_1d_config.options"
+                        :style="chart_styles"/>
+                </div>
+                <div class="threats__graph">
+                    <TopThreatsChart
+                        :data="top_threats_7d_config.data"
+                        :options="top_threats_7d_config.options"
+                        :style="chart_styles"/>
+                </div>
+                <div class="threats__graph">
+                    <TopThreatsChart
+                        :data="top_threats_30d_config.data"
+                        :options="top_threats_30d_config.options"
+                        :style="chart_styles"/>
+                </div>
+                <div class="threats__graph">
+                    <TopThreatsChart
+                        :data="top_threats_365d_config.data"
+                        :options="top_threats_365d_config.options"
+                        :style="chart_styles"/>
+            </div>
+        </div> -->
+    </div>
+    <!-- <div class="relevant__crawled">
+        <LastRelevantCrawled/>
+    </div> -->
+
+
+</div>

@@ -1,0 +1,111 @@
+Alright so this is where the real spaghetti is.
+
+Components make up different segments of the frontend. This includes things like
+the search bar at the top, the naivgation menu on the left, the search result pages,
+the results themselves, the details modal, etc.
+
+Here's a list of the different components and a brief description of what they do:
+
+
+/components {
+
+    AppNav: This is the navigation menu on the left of the site. The links simply correspond to the router path for each of those webpages. The logic for the logout button and the export button also resides here.
+
+    *Button: No fucking idea tbh.
+
+    Help: Mostly just the HTML for the help page plus some CSS.
+
+    Login: Everything for the login page is implemented here. The Javascript only covers sending the login info to the backend and preventing logins until the backend returns an OK status. Everything else is styling.
+
+    Register: Performs similar role to the Login component. Everything on the register page resides here, although it is more complicated than the login component. The register component implements things like pulling the QR code from the baackend, checking and enforcing the password strength rules, checking if the confirm password matches, etc.
+
+    SavedSearch: Used to cover all aspects of the saved search functionality. This implementation is currently scrapped, and this component is either going to be completely reworked or just removed.
+
+    SearchBar: All the logic and styling/layout for the searchbar resides here. This includes the logic for hiding and revealing the search bar itself, and for sending the search request to the backend.
+
+    *SynthaseToggle: I also don't know what this does...
+
+    *Although I could be wrong, I believe both of these were left incomplete by Darrison and aren't used anywhere.
+
+}
+
+/components/AdvancedSearch {
+
+    AdvancedSearch: Implements all the logic for the advanced search form, which includes populating the lists for the threats and indicators. The HTML and CSS are separated out into the styles.scss and template.html files respectively.
+
+}
+
+/components/Dashboard {
+
+    Dashboard: This component is some major spaghetti. It holds all the logic for displaying the charts on the dashboard, which includes pulling the data from the backend using the store, pushing these data points onto the charts, and the how the charts actually look. Yes, the chart layouts and style need to be (in part) implemented through Javascript, which is fucked and I hate it. The charts are all done in Vue's native ChartJS.
+
+    DataCollectionChart,
+    Rescans,
+    RescansChart,
+    SavedSearchesTable,
+    TopThreatsChart: These are the actual chart components. Within template.html, you'll see that each of the components are loaded with the data and options defined within Dashboard.vue. Rescans, RescansChart, and SavedSearchesTable are not used on the dashboard, although the backend API does exist and these components do correctly use the API. Some other styling for the charts are also handled within styles.scss
+
+    /LastRelevantResults {
+        LastRelevantCrawled: Nearly identical to SearchResults.vue. However, the text at the top of the pagination and sorting box is different, and the logic for handling permalinks does not exist. Everything else is the same. Styling and layout are handled by styles.scss and template.html, and these differ from the standard search results style/layout in order to accommodate the overall layout of the dashboard.
+
+        Pagination: Basically the same as Pagination.vue, except support for advanced search pagination is removed since it isn't needed.
+
+        Sentiment: See Sentiment.vue under the SearchResults folder, they're identical.
+
+        SortResults: See SortResults.vue under the SearchResults folder, they're identical.
+
+        /ResultDetails {
+            ResultDetails: See ResultDetails.vue under /components/SearchResults/ResultDetails, they're identical. The styles.scss and template.html are also identical.
+        }
+
+    }
+
+}
+
+/components/ManageThreats {
+    AutocompleteItem: No idea, I think Darrison planned to do something with this and never finished it.
+
+    ManageThreats: Covers all of the Javascript for the manage threats page. The styling and layout is split into style.css and template.html.
+
+}
+
+/components/SearchResults {
+    Pagination: This is the logic for the pagination for search results. The styling and layout for the buttons are included in here too.
+    
+    SearchResults: Handles the logic for returning the data pulled fromt he backend. It also handles loading perma links, which is similar to loading normal search results. There is a small function that handles the formatting of the result dates from unix time into a human readable format. There is also legacy code for the country flags, which isn't used. This component also strangely handles the logic for sorting the results, even though there's a separate SortResults component (Darrison made this decision). The styling and layout is split into style.css and template.html.
+
+    Sentiment: The only javascript in here is a function that converts the -1 to 1 range of the sentiment analyzer to a 0 to 100 range. The rest of the file covers the layout and the style of the sentiment bar itself.
+
+    SortResults: This covers the style and layout of the sort options on the left above the pagination buttons. There's also some Javascript in here but I don't entirely remember what this does. The actual sorting logic resides in SearchResults.vue
+
+    /ResultDetails {
+        ResultDetails: The Javascript here covers the filtering options when selecting an indicator or topic within the result details modal. Like SearchResults.vue, there is a function for formatting the unix time into a human readable format, and useless country flag code. The styling and layout is split into style.css and template.html.
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

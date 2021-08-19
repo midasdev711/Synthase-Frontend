@@ -1,0 +1,67 @@
+<div id="manage-threats" v-if="threats && threats.length" class="container-lg shadow-md">
+	<h1 class="title p-4">Manage Threats and Indicators</h1>
+	<div class="search_container">
+		<div class="search_bar">
+			<input 
+			type="text"
+			class="manage-threats__search shadow-sm" 
+			placeholder="Filter your threats..." 
+			v-model="threat_search">
+		</div>
+		<div class="separator"></div>
+		<div class="search_bar">
+			<input type="text" class="manage-threats__search shadow-sm" placeholder="Filter your indicators..." v-model="indicator_search">
+		</div>
+		<div class="separator_bottom"></div>
+	</div>
+	<div class="threats-indicators shadow-inner">
+		<div class="threat-card shadow-md"
+			v-for="threat of threats_filtered"
+			:class="threat_class(threat)">
+			<div class="threat-card__header">
+				<div class="threat-card__header-flex">
+					<h3 class="threat-name" >{{ threat.name}}</h3>
+					<div class="flex items-center">
+						<font-awesome-icon
+							v-if="threat.name != 'UNCATEGORIZED'"
+							class="threat-card__add"
+							:icon="['fas', 'plus']"
+							@click="active_threat(threat)"/>
+						<font-awesome-icon
+							v-else
+							class="threat-card__add_uncat"
+							:icon="['fas', 'plus']"
+							@click="active_threat(threat)"/>
+						<font-awesome-icon
+							v-if="threat.name != 'UNCATEGORIZED'"
+							class="threat-card__remove"
+							:icon="['fas', 'times']"
+							@click="delete_threat(threat)"/>
+					</div>
+				</div>
+				<input class="threat-card__header-input"
+					:ref="`threat_${threat.name.toLowerCase()}`"
+					type="text" v-model="indicator_input"
+					@keyup.enter="add_pair"/>
+			</div>
+			<div class="threat-card__indicators">
+				<div class="threat-card__indicator-chip"
+					v-for="indicator of filter_indicators(threat.indicators)">
+					<p class="threat-card__indicator-label">{{ indicator }}</p>
+					<font-awesome-icon
+						class="threat-card__indicator-close"
+						:icon="['fas', 'times-circle']"
+						@click="remove_indicator(threat, indicator)"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="manage-threats__footer">
+		<h3 class="font-normal my-3">Add Threat</h3>
+		<input
+			maxlength="45"
+			v-model="threat_input"
+			type="text"
+			@keyup.enter="add_threat">
+	</div>
+</div>

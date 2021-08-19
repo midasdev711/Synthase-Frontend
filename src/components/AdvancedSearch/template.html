@@ -1,0 +1,475 @@
+<div class='root_container'>
+	<div class="advanced-search shadow-lg">
+		<div class="subsection">
+			<!-- <div class="select-row w-3/4">
+				<h3 class="select-title">General</h3>
+				<input class="w-full" v-model="query" placeholder="Search Term" type="text"/>
+			</div> -->
+			<div class="header">
+				<h1 class="select-row">Onion Sites</h1>
+				<!-- <div class="header-subsection">
+					<div class="header-row">
+						<h3 class="select-title">Tor</h3>
+						<SynthaseToggle @switch="use_tor = !use_tor" :init_state=use_tor></SynthaseToggle>
+					</div>
+					<div class="header-row">
+						<h3 class="select-title">Telegram</h3>
+						<SynthaseToggle @switch="use_telegram = !use_telegram" :init_state=use_telegram></SynthaseToggle>
+					</div>
+				</div> -->
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Threats</h3>
+				<v-select ref="select"
+					:options="get_threats"
+					v-model="threats"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Indicators</h3>
+				<v-select ref="select"
+					:options="get_indicators"
+					v-model="indicators"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Page Topics</h3>
+				<v-select ref="select"
+					:noDrop="true"
+					v-model="page_topics"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Page Types</h3>
+				<v-select class="shortened" ref="select"
+					:options="options.page_types"
+					v-model="page_types"
+					multiple>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Languages</h3>
+				<v-select class="shortened" ref="select"
+					:options="options.languages"
+					v-model="languages"
+					taggable
+					multiple
+					:clearable=true>
+				</v-select>
+			</div>
+		</div>
+		<div class="subsection--2">
+			<!-- <div class="select-row">
+			</div> -->
+			<div class="select-row crawl-range">
+				<h3 class="select-title">Last Crawl Range</h3>
+				<v-date-picker mode="range" value="YY-mm-dd" v-model="selectedDate"></v-date-picker>
+			</div>
+			<div class="select-row">
+				<h3 class="select-title">Deanonymized</h3>
+				<SynthaseToggle @switch="set_deanon" :init_state=deanonymized></SynthaseToggle>
+			</div>
+			<div class="select-row extremism-score">
+				<h3 class="select-title">Extremism Score</h3>
+				<SynthaseToggle @switch="use_extremism_score = !use_extremism_score" :active=use_extremism_score></SynthaseToggle>
+				<!-- <div class="row no-pad justify-between">
+					<input type="text" placeholder="From" v-model="extremism_score.start">
+					<input type="text" placeholder="To" v-model="extremism_score.end">
+				</div> -->
+			</div>
+			<div class="slider-container">
+				<vue-slider 
+					v-model="extremism_values"
+					:dotSize=18
+					:height=8
+					:marks="extremism_marks"
+					:disabled=!use_extremism_score
+				>
+				</vue-slider>
+			</div>
+			<div class="select-row extremism-score">
+				<h3 class="select-title">Sentiment Score</h3>
+				<SynthaseToggle @switch="use_sentiment_score = !use_sentiment_score" :active=use_sentiment_score></SynthaseToggle>
+				<!-- <div class="row no-pad justify-between">
+					<input type="text" placeholder="From" v-model="sentiment_score.start">
+					<input type="text" placeholder="To" v-model="sentiment_score.end">
+				</div> -->
+			</div>
+			<div class="slider-container">
+				<vue-slider 
+					v-model="sentiment_values"
+					:dotSize=18
+					:height=8
+					:data="sentiment_data",
+					:marks="true"
+					:disabled="!use_sentiment_score"
+				>
+				</vue-slider>
+			</div>
+			<!-- <div class="select-row">
+				<button class="btn advanced_submit" @click="search">search</button>
+			</div> -->
+		</div>
+		<!-- <button class="btn" @click="search">search</button> -->
+	</div>
+	<div class="advanced-search shadow-lg">
+		<div class="subsection">
+			<!-- <div class="select-row w-3/4">
+				<h3 class="select-title">General</h3>
+				<input class="w-full" v-model="query" placeholder="Search Term" type="text"/>
+			</div> -->
+			<div class="header">
+				<h1 class="select-row">Telegram Messages</h1>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Sender Username</h3>
+				<v-select ref="select"
+					:noDrop="true"
+					v-model="usernames"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Origin Type</h3>
+				<v-select class="shortened"
+					ref="select"
+					:options="options.origin_types"
+					v-model="origin_type"
+					multiple>
+				</v-select>
+			</div>
+			<div class="select-row crawl-range">
+				<h3 class="select-title">Timestamp Range</h3>
+				<v-date-picker mode="range" value="YY-mm-dd" v-model="selectedDate"></v-date-picker>
+			</div>
+			<!-- <div class="select-row">
+				<h3 class="select-title">Is Public</h3>
+				<SynthaseToggle @switch="is_public = !is_public" :init_state=is_public></SynthaseToggle>
+			</div> -->
+		</div>
+		<div class="subsection--2">
+			<div class="select-row--media-type-div w-3/4">
+				<h3 class="select-title">Media Type</h3>
+				<div class="checkbox-div">
+					<v-select class="select-row shortened"
+						:options="options.media_types"
+						v-model="media_type"
+						:clearable=false>
+					</v-select>
+					<div v-if="media_type == 'Photo'">
+						<input class="checkbox" type="checkbox" v-model="photo_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Document'">
+						<input class="checkbox" type="checkbox" v-model="document_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Website'">
+						<input class="checkbox" type="checkbox" v-model="website_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Contact'">
+						<input class="checkbox" type="checkbox" v-model="contact_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Geotag'">
+						<input class="checkbox" type="checkbox" v-model="geotag_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Invoice'">
+						<input class="checkbox" type="checkbox" v-model="invoice_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Venue'">
+						<input class="checkbox" type="checkbox" v-model="venue_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+					<div v-else-if="media_type == 'Poll'">
+						<input class="checkbox" type="checkbox" v-model="poll_checked"></input>
+						<span class="checkbox--label"> Required </span>
+					</div>
+				</div>
+			</div>
+			<div v-if="media_type == 'Document'" class="select-row w-3/4">
+				<h3 class="select-title">MIME Type</h3>
+				<v-select class="select-row"
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="mime_type">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Document'" class="select-row w-3/4">
+				<h3 class="select-title">File Name</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="file_name">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Website'" class="select-row w-3/4">
+				<h3 class="select-title">Page Type</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="tel_webpage_type">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Website'" class="select-row w-3/4">
+				<h3 class="select-title">URL</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="tel_webpage_url">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Website'" class="select-row w-3/4">
+				<h3 class="select-title">Title</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="tel_webpage_title">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Website'" class="select-row w-3/4">
+				<h3 class="select-title">Description</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="tel_webpage_description">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Contact'" class="select-row w-3/4">
+				<h3 class="select-title">Phone Number</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="phone_number">
+				</v-select>
+			</div>
+			<!-- <div v-if="media_type == 'Contact'" class="select-row shortened w-3/4">
+				<h3 class="select-title">Contact User ID</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					v-model="contact_user_id">
+				</v-select>
+			</div> -->
+			<div v-if="media_type == 'Contact'" class="select-row w-3/4">
+				<h3 class="select-title">Contact Name</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="contact_name">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Contact'" class="select-row w-3/4">
+				<h3 class="select-title">Vcard</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="vcard">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Geotag'" class="select-row w-3/4">
+				<h3 class="select-title">Latitude</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="geotag_latitude">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Geotag'" class="select-row w-3/4">
+				<h3 class="select-title">Longitude</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="geotag_longitude">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Invoice'" class="select-row w-3/4">
+				<h3 class="select-title">Title</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="invoice_title">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Invoice'" class="select-row w-3/4">
+				<h3 class="select-title">Description</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="invoice_description">
+				</v-select>
+			</div>
+			<!-- <div v-if="media_type == 'Invoice'" class="select-row shortened w-3/4">
+				<h3 class="select-title">Currency</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					v-model="currency">
+				</v-select>
+			</div> -->
+			<div v-if="media_type == 'Invoice'" class="select-row w-3/4">
+				<h3 class="select-title">Total Amount</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="total_amount">
+				</v-select>
+			</div>
+			<!-- <div v-if="media_type == 'Invoice'" class="select-row shortened w-3/4">
+				<h3 class="select-title">Shipping Address</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					v-model="shipping_address">
+				</v-select>
+			</div> -->
+			<div v-if="media_type == 'Venue'" class="select-row w-3/4">
+				<h3 class="select-title">Venue Title</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="venue_title">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Venue'" class="select-row w-3/4">
+				<h3 class="select-title">Venue Address</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="venue_address">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Venue'" class="select-row w-3/4">
+				<h3 class="select-title">Venue Provider</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="venue_provider">
+				</v-select>
+			</div>
+			<!-- <div v-if="media_type == 'Venue'" class="select-row shortened w-3/4">
+				<h3 class="select-title">Latitude</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					v-model="venue_latitude">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Venue'" class="select-row shortened w-3/4">
+				<h3 class="select-title">Longitude</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					v-model="venue_longitude">
+				</v-select>
+			</div> -->
+			<div v-if="media_type == 'Poll'" class="select-row w-3/4">
+				<h3 class="select-title">Question</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="question">
+				</v-select>
+			</div>
+			<div v-if="media_type == 'Poll'" class="select-row w-3/4">
+				<h3 class="select-title">Options</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="poll_options">
+				</v-select>
+			</div>
+			<!-- <div v-if="media_type == 'Poll'" class="select-row w-3/4"">
+				<h3 class="select-title">Is Closed</h3>
+				<SynthaseToggle @switch="is_closed = !is_closed" :init_state=is_public></SynthaseToggle>
+			</div> -->
+			<div v-if="media_type == 'Poll'" class="select-row w-3/4">
+				<h3 class="select-title">Results</h3>
+				<v-select
+					:noDrop=true
+					:taggable=true
+					multiple
+					v-model="poll_results">
+				</v-select>
+			</div>
+			<!-- <div class="select-row w-3/4">
+				<h3 class="select-title">Page Topics</h3>
+				<v-select ref="select"
+					:noDrop="true"
+					v-model="page_topics"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Page Topics</h3>
+				<v-select ref="select"
+					:noDrop="true"
+					v-model="page_topics"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Page Topics</h3>
+				<v-select ref="select"
+					:noDrop="true"
+					v-model="page_topics"
+					multiple
+					taggable>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Page Types</h3>
+				<v-select ref="select"
+					:options="options.page_types"
+					v-model="page_types"
+					multiple>
+				</v-select>
+			</div>
+			<div class="select-row w-3/4">
+				<h3 class="select-title">Languages</h3>
+				<v-select ref="select"
+					:options="options.languages"
+					v-model="languages"
+					taggable
+					multiple>
+				</v-select>
+			</div> -->
+		</div>
+	</div>
+	<div class="subsection">
+		<div class="select-row">
+			<button class="btn advanced_submit" @click="search">search</button>
+		</div>
+	</div>
+</div>
