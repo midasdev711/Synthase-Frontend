@@ -25,9 +25,12 @@ module.exports = merge(baseConfig, {
     quiet: false,
     publicPath: '/',
     proxy: {
-      '/': {
-          target: 'https://j62o4uuxj9.execute-api.us-east-1.amazonaws.com/dev',
-          changeOrigin: true
+      '/api': {
+        target: 'https://j62o4uuxj9.execute-api.us-east-1.amazonaws.com',
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "dev"
+        },
       }
     },
   },

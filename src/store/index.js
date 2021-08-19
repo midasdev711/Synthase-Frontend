@@ -30,7 +30,7 @@ export default new Vuex.Store({
     dashboard_telegram: null,
     dash_current_query: null,
     prod_url: '/api',
-    dev_url: 'https://j62o4uuxj9.execute-api.us-east-1.amazonaws.com/dev'
+    dev_url: '/api'
   },
   mutations: {
     update_results (state, res) {
