@@ -107,7 +107,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetch_threats ({ commit, getters }) {
-      const url = `${getters.api_url}/threats/manage`
+      const url = `${getters.api_url}/threats/manage/`
       axios.get(url).then(res => {
         commit('update_threats', res.data)
       }).catch(err => {

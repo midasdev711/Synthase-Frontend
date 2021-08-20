@@ -35,7 +35,7 @@ module.exports = merge(baseConfig, {
         target: 'https://j62o4uuxj9.execute-api.us-east-1.amazonaws.com',
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "dev"
+          "^/api": "/dev"
         },
       }
     },
