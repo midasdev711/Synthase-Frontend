@@ -15,10 +15,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'assets': utils.resolve('assets'),
-      'pages': utils.resolve('src/pages'),
-      'static': utils.resolve('static'),
-      'components': utils.resolve('src/components'),
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
     }
@@ -26,6 +22,10 @@ module.exports = {
 
   module: {
     rules: [{
+        test: /\.css$/i,
+        include: path.resolve(__dirname, 'src'),
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },{
         test: /\.vue$/,
         use: 'vue-loader'
       }, {

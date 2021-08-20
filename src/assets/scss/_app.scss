@@ -8,9 +8,9 @@
 @import 'global/utility';
 @import 'global/grid';
 @import 'global/icons';
-@import "node_modules/tailwindcss/preflight";
-@import "node_modules/tailwindcss/components";
-@import "node_modules/tailwindcss/utilities";
+@import "node_modules/tailwindcss/dist/base";
+@import "node_modules/tailwindcss/dist/components";
+@import "node_modules/tailwindcss/dist/utilities";
 @import 'global/layout';
 @import 'global/ui-components';
 
