@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const path = require('path')
 
 const HOST = 'localhost'
 const PORT = 8080
@@ -14,6 +15,11 @@ module.exports = merge(baseConfig, {
   devtool: 'source-map',
 
   devServer: {
+    historyApiFallback: {
+      rewrites: [
+        { from: /.*/, to: path.posix.join('/', 'index.html') },
+      ],
+    },
     clientLogLevel: 'warning',
     hot: true,
     contentBase: 'dist',
